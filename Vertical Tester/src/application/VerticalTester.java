@@ -18,6 +18,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
 public class VerticalTester extends Application {
+	
+	double start;
+	double stop;
+	double hangTime;
+	double vertical;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		String path = "/Users/genki/Downloads/ShortVideo.mp4";
@@ -38,8 +44,10 @@ public class VerticalTester extends Application {
 		player.play();
 		*/
 		
-		
-		
+		// TODO Add sliders
+		// TODO Equation to calculate vertical with time in air
+		// Vertical Jump Height = 0.5 * 9.81 m/s^2 * (hang time / 2) ^2
+		// d = Vi * t + (1/2) * a * t^2
 		
 		Media media = new Media(new File(path).toURI().toString());
 
@@ -55,11 +63,27 @@ public class VerticalTester extends Application {
 		mediaView.setPreserveRatio(true);
 		
 		Button startButton = new Button("First Jump");
+		Button stopButton = new Button("Feet lands");
+		Button calculate = new Button("Calculate Vert!");
 		Button play = new Button("PLAY");
 		Button pause = new Button("PAUSE");
 		
 		startButton.setOnAction(e -> {
-			System.out.println(mediaPlayer.getCurrentTime());
+			System.out.println("Take off: " + mediaPlayer.getCurrentTime().toSeconds());
+			start = mediaPlayer.getCurrentTime().toSeconds();
+		});
+		
+		stopButton.setOnAction(e -> {
+			System.out.println("Feet Lands: " + mediaPlayer.getCurrentTime().toSeconds());
+			stop = mediaPlayer.getCurrentTime().toSeconds();
+		});
+		
+		calculate.setOnAction(e -> {
+			hangTime = stop - start;
+			vertical = 0.5 * 9.81 * Math.pow((hangTime / 2), 2);
+			vertical = vertical * 39.37;
+			System.out.printf("%.2f", vertical);
+			System.out.println(" inches");
 		});
 		
 		play.setOnAction(e -> mediaPlayer.play());
@@ -74,7 +98,8 @@ public class VerticalTester extends Application {
 		StackPane.setAlignment(startButton, Pos.TOP_LEFT);
 		StackPane.setAlignment(play, Pos.BOTTOM_LEFT);
 		StackPane.setAlignment(pause, Pos.BOTTOM_RIGHT);
-		root.getChildren().addAll(mediaView, startButton, play, pause);
+		StackPane.setAlignment(stopButton, Pos.TOP_RIGHT);
+		root.getChildren().addAll(mediaView, startButton, play, pause, stopButton, calculate);
 		Scene scene = new Scene(root, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Playing Video");
