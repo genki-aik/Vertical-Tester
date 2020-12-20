@@ -55,17 +55,26 @@ public class VerticalTester extends Application {
 		mediaView.setPreserveRatio(true);
 		
 		Button startButton = new Button("First Jump");
+		Button play = new Button("PLAY");
+		Button pause = new Button("PAUSE");
 		
 		startButton.setOnAction(e -> {
-			System.out.println(media.getDuration().toSeconds());
+			System.out.println(mediaPlayer.getCurrentTime());
 		});
+		
+		play.setOnAction(e -> mediaPlayer.play());
+		
+		pause.setOnAction(e -> mediaPlayer.pause());
+			
 		
 		mediaPlayer.setAutoPlay(true);
 		
 		//Group root = new Group();
 		StackPane root = new StackPane();
 		StackPane.setAlignment(startButton, Pos.TOP_LEFT);
-		root.getChildren().addAll(mediaView, startButton);
+		StackPane.setAlignment(play, Pos.BOTTOM_LEFT);
+		StackPane.setAlignment(pause, Pos.BOTTOM_RIGHT);
+		root.getChildren().addAll(mediaView, startButton, play, pause);
 		Scene scene = new Scene(root, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Playing Video");
