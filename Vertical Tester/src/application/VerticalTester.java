@@ -11,9 +11,11 @@ import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -24,10 +26,13 @@ public class VerticalTester extends Application {
 	double stop;
 	double hangTime;
 	double vertical;
+	double duration;
 	
 	Media media;
 	MediaPlayer mediaPlayer;
 	MediaView mediaView;
+	
+	Slider slider;
 	
 	Controls controls = new Controls();
 	
@@ -103,8 +108,15 @@ public class VerticalTester extends Application {
 		mediaPlayer.setAutoPlay(true);
 		buttonHandlers();
 		
+		duration = media.getDuration().toSeconds();
+		slider = new Slider(0, duration, 0);
+		slider.setShowTickMarks(true);
+		slider.setShowTickLabels(true);
+		
+		
 		//Group root = new Group();
 		StackPane root = new StackPane();
+		//VBox vbox = new VBox(3);
 		/*
 		StackPane.setAlignment(startButton, Pos.TOP_LEFT);
 		StackPane.setAlignment(play, Pos.BOTTOM_LEFT);
@@ -112,9 +124,14 @@ public class VerticalTester extends Application {
 		StackPane.setAlignment(stopButton, Pos.TOP_RIGHT);
 		root.getChildren().addAll(mediaView, startButton, play, pause, stopButton, calculate);
 		*/
-		StackPane.setAlignment(controls, Pos.BOTTOM_CENTER);
-		root.getChildren().addAll(mediaView, controls);
+		//StackPane.setAlignment(controls, Pos.BOTTOM_CENTER);
+		StackPane.setAlignment(slider,  Pos.TOP_CENTER);
+		root.getChildren().addAll(mediaView, controls, slider);
+		
+		//vbox.getChildren().addAll(mediaView, controls);
 		Scene scene = new Scene(root, 500, 500);
+		
+		//Scene scene = new Scene(vbox, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Playing Video");
 		primaryStage.show();
@@ -123,6 +140,7 @@ public class VerticalTester extends Application {
 	
 	private class Controls extends HBox {
 		//HBox controlBox = new HBox(5);
+		//Slider slider = new Slider();
 		
 		Button startButton;
 		Button stopButton;
@@ -131,7 +149,7 @@ public class VerticalTester extends Application {
 		Button pause;
 		
 		public Controls() {
-			super();
+			super(5);
 			startButton = new Button("Take Off");
 			stopButton = new Button("Feet Lands");
 			calculate = new Button("Calculate Vertical");
