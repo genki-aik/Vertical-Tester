@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -110,14 +112,45 @@ public class VerticalTester extends Application {
 		mediaPlayer.setAutoPlay(true);
 		buttonHandlers();
 		
-		/*
+		
 		duration = media.getDuration().toSeconds();
+		/*
 		slider = new Slider(0, duration, 1);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		*/
-		
+		System.out.println(duration);
 		Slider slider = new Slider();
+		//slider.setMin(0);
+		//slider.setMax(media.getDuration().toSeconds());
+		
+		/*
+		mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+			if (!slider.isValueChanging()) {
+				slider.setValue(newTime.toSeconds());
+			}
+		});
+		*/
+		
+		InvalidationListener sliderChangeListener = o -> {
+			Duration seekTo = Duration.seconds(slider.getValue());
+			mediaPlayer.seek(seekTo);
+		};
+		slider.valueProperty().addListener(sliderChangeListener);
+		
+		mediaPlayer.currentTimeProperty().addListener(l -> {
+			slider.valueProperty().removeListener(sliderChangeListener);
+			
+			Duration currentTime = mediaPlayer.getCurrentTime();
+			double value = currentTime.toSeconds();
+			slider.setValue(value);
+			
+			slider.valueProperty().addListener(sliderChangeListener);
+		});
+		
+		slider.maxProperty().bind(Bindings.createDoubleBinding(
+				() -> mediaPlayer.getTotalDuration().toSeconds(),
+				mediaPlayer.totalDurationProperty()));
 		
 		//Group root = new Group();
 		BorderPane root = new BorderPane();
@@ -140,7 +173,7 @@ public class VerticalTester extends Application {
 		root.setBottom(vbox);
 		
 		//vbox.getChildren().addAll(mediaView, controls);
-		Scene scene = new Scene(root, 500, 500);
+		Scene scene = new Scene(root, 600, 600);
 		
 		//Scene scene = new Scene(vbox, 500, 500);
 		primaryStage.setScene(scene);
