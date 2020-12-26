@@ -32,7 +32,7 @@ public class VerticalTester extends Application {
 	MediaPlayer mediaPlayer;
 	MediaView mediaView;
 	
-	Slider slider;
+	//Slider slider;
 	
 	Controls controls = new Controls();
 	
@@ -68,11 +68,13 @@ public class VerticalTester extends Application {
 		
 		mediaView = new MediaView(mediaPlayer);
 		
+		/*
 		DoubleProperty width = mediaView.fitWidthProperty();
 		DoubleProperty height = mediaView.fitHeightProperty();
 		
 		width.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
 		height.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
+		*/
 		mediaView.setPreserveRatio(true);
 		
 		/*
@@ -108,14 +110,19 @@ public class VerticalTester extends Application {
 		mediaPlayer.setAutoPlay(true);
 		buttonHandlers();
 		
+		/*
 		duration = media.getDuration().toSeconds();
-		slider = new Slider(0, duration, 0);
+		slider = new Slider(0, duration, 1);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
+		*/
 		
+		Slider slider = new Slider();
 		
 		//Group root = new Group();
-		StackPane root = new StackPane();
+		BorderPane root = new BorderPane();
+		VBox vbox = new VBox();
+		//StackPane root = new StackPane();
 		//VBox vbox = new VBox(3);
 		/*
 		StackPane.setAlignment(startButton, Pos.TOP_LEFT);
@@ -125,8 +132,12 @@ public class VerticalTester extends Application {
 		root.getChildren().addAll(mediaView, startButton, play, pause, stopButton, calculate);
 		*/
 		//StackPane.setAlignment(controls, Pos.BOTTOM_CENTER);
-		StackPane.setAlignment(slider,  Pos.TOP_CENTER);
-		root.getChildren().addAll(mediaView, controls, slider);
+		//StackPane.setAlignment(slider,  Pos.TOP_CENTER);
+
+		//root.getChildren().addAll(mediaView, controls);
+		vbox.getChildren().addAll(slider, controls);
+		root.setCenter(mediaView);
+		root.setBottom(vbox);
 		
 		//vbox.getChildren().addAll(mediaView, controls);
 		Scene scene = new Scene(root, 500, 500);
@@ -148,6 +159,8 @@ public class VerticalTester extends Application {
 		Button play;
 		Button pause;
 		
+		//Slider slider;
+		
 		public Controls() {
 			super(5);
 			startButton = new Button("Take Off");
@@ -156,10 +169,11 @@ public class VerticalTester extends Application {
 			play = new Button("PLAY");
 			pause = new Button("PAUSE");
 			
+			//slider = new Slider();
 			//buttonHandlers();
 			
 			this.getChildren().addAll(startButton, stopButton, calculate, play, pause);
-			this.setAlignment(Pos.BOTTOM_CENTER);
+			this.setAlignment(Pos.CENTER);
 		}
 	}
 	
