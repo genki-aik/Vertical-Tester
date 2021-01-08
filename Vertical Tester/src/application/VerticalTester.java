@@ -242,12 +242,13 @@ public class VerticalTester extends Application {
 		controls.pause.setOnAction(e -> mediaPlayer.pause());
 		
 		controls.forward.setOnAction(e -> {
-			System.out.println(mediaPlayer.getCurrentTime().toSeconds());
 			Duration fastForward = mediaPlayer.getCurrentTime();
-			//System.out.println("NEW: " + fastForward.toString());
-			System.out.println("STATUS: " + mediaPlayer.getStatus());
-			System.out.println("START: " + mediaPlayer.getStartTime().toString());
-			mediaPlayer.seek(fastForward.add(new Duration(1000)));
+			mediaPlayer.seek(fastForward.add(new Duration(50)));
+		});
+		
+		controls.backward.setOnAction(e -> {
+			Duration rewind = mediaPlayer.getCurrentTime();
+			mediaPlayer.seek(rewind.subtract(new Duration(50)));
 		});
 	}
 	
