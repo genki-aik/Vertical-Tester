@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -40,7 +41,7 @@ public class VerticalTester extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		String path = "/Users/genki/Downloads/ShortVideo.mp4";
+		String path = "/Users/genki/Downloads/Vertical_Test_2.mp4";
 		
 		/*
 		StackPane root = new StackPane();
@@ -154,6 +155,7 @@ public class VerticalTester extends Application {
 		
 		//Group root = new Group();
 		BorderPane root = new BorderPane();
+		Pane pane = new Pane();
 		VBox vbox = new VBox();
 		//StackPane root = new StackPane();
 		//VBox vbox = new VBox(3);
@@ -168,8 +170,10 @@ public class VerticalTester extends Application {
 		//StackPane.setAlignment(slider,  Pos.TOP_CENTER);
 
 		//root.getChildren().addAll(mediaView, controls);
+		pane.getChildren().add(mediaView);
+		pane.setStyle("-fx-background-color: black;");
 		vbox.getChildren().addAll(slider, controls);
-		root.setCenter(mediaView);
+		root.setCenter(pane);
 		root.setBottom(vbox);
 		
 		//vbox.getChildren().addAll(mediaView, controls);
@@ -191,6 +195,8 @@ public class VerticalTester extends Application {
 		Button calculate;
 		Button play;
 		Button pause;
+		Button forward;
+		Button backward;
 		
 		//Slider slider;
 		
@@ -201,11 +207,13 @@ public class VerticalTester extends Application {
 			calculate = new Button("Calculate Vertical");
 			play = new Button("PLAY");
 			pause = new Button("PAUSE");
+			forward = new Button(">>");
+			backward = new Button("<<");
 			
 			//slider = new Slider();
 			//buttonHandlers();
 			
-			this.getChildren().addAll(startButton, stopButton, calculate, play, pause);
+			this.getChildren().addAll(startButton, stopButton, calculate, play, pause, backward, forward);
 			this.setAlignment(Pos.CENTER);
 		}
 	}
@@ -232,6 +240,15 @@ public class VerticalTester extends Application {
 		controls.play.setOnAction(e -> mediaPlayer.play());
 		
 		controls.pause.setOnAction(e -> mediaPlayer.pause());
+		
+		controls.forward.setOnAction(e -> {
+			System.out.println(mediaPlayer.getCurrentTime().toSeconds());
+			Duration fastForward = mediaPlayer.getCurrentTime();
+			//System.out.println("NEW: " + fastForward.toString());
+			System.out.println("STATUS: " + mediaPlayer.getStatus());
+			System.out.println("START: " + mediaPlayer.getStartTime().toString());
+			mediaPlayer.seek(fastForward.add(new Duration(1000)));
+		});
 	}
 	
 }
