@@ -235,6 +235,8 @@ public class VerticalTester extends Application {
 			vertical = vertical * 39.37;
 			System.out.printf("%.2f", vertical);
 			System.out.println(" inches");
+			System.out.printf("Hang Time: %.2f", hangTime);
+			System.out.println(" seconds");
 		});
 		
 		controls.play.setOnAction(e -> mediaPlayer.play());
