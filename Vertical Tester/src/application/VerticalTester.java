@@ -205,13 +205,10 @@ public class VerticalTester extends Application {
 			startButton = new Button("Take Off");
 			stopButton = new Button("Feet Lands");
 			calculate = new Button("Calculate Vertical");
-			play = new Button("PLAY");
-			pause = new Button("PAUSE");
+			play = new Button(">");
+			pause = new Button("||");
 			forward = new Button(">>");
 			backward = new Button("<<");
-			
-			//slider = new Slider();
-			//buttonHandlers();
 			
 			this.getChildren().addAll(startButton, stopButton, calculate, play, pause, backward, forward);
 			this.setAlignment(Pos.CENTER);
@@ -233,7 +230,7 @@ public class VerticalTester extends Application {
 			hangTime = stop - start;
 			vertical = 0.5 * 9.81 * Math.pow((hangTime / 2), 2);
 			vertical = vertical * 39.37;
-			System.out.printf("%.2f", vertical);
+			System.out.printf("Vertical: %.2f", vertical);
 			System.out.println(" inches");
 			System.out.printf("Hang Time: %.2f", hangTime);
 			System.out.println(" seconds");
