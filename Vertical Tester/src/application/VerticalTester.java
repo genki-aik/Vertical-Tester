@@ -13,6 +13,7 @@ import javafx.util.Duration;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -41,7 +42,7 @@ public class VerticalTester extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		String path = "/Users/genki/Downloads/Vertical_Test_2.mp4";
+		String path = "/Users/genki/Downloads/VerticalTest3.mp4";
 		
 		/*
 		StackPane root = new StackPane();
@@ -122,6 +123,11 @@ public class VerticalTester extends Application {
 		*/
 		System.out.println(duration);
 		Slider slider = new Slider();
+		
+		Label playTime = new Label();
+		playTime.setPrefWidth(130);
+		playTime.setMinWidth(50);
+		
 		//slider.setMin(0);
 		//slider.setMax(media.getDuration().toSeconds());
 		
@@ -157,6 +163,7 @@ public class VerticalTester extends Application {
 		BorderPane root = new BorderPane();
 		Pane pane = new Pane();
 		VBox vbox = new VBox();
+		HBox hbox = new HBox();
 		//StackPane root = new StackPane();
 		//VBox vbox = new VBox(3);
 		/*
@@ -172,7 +179,8 @@ public class VerticalTester extends Application {
 		//root.getChildren().addAll(mediaView, controls);
 		pane.getChildren().add(mediaView);
 		pane.setStyle("-fx-background-color: black;");
-		vbox.getChildren().addAll(slider, controls);
+		hbox.getChildren().addAll(slider, playTime);
+		vbox.getChildren().addAll(hbox, controls);
 		root.setCenter(pane);
 		root.setBottom(vbox);
 		
@@ -210,10 +218,11 @@ public class VerticalTester extends Application {
 			forward = new Button(">>");
 			backward = new Button("<<");
 			
+			
 			this.getChildren().addAll(startButton, stopButton, calculate, play, pause, backward, forward);
 			this.setAlignment(Pos.CENTER);
 		}
-	}
+	} // Controls
 	
 	private void buttonHandlers() {
 		controls.startButton.setOnAction(e -> {
