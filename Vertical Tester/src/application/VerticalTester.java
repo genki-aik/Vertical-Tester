@@ -18,6 +18,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -123,6 +124,9 @@ public class VerticalTester extends Application {
 		*/
 		System.out.println(duration);
 		Slider slider = new Slider();
+		HBox.setHgrow(slider, Priority.ALWAYS);
+		slider.setMinWidth(50);
+		slider.setMaxWidth(Double.MAX_VALUE);
 		
 		Label playTime = new Label();
 		playTime.setPrefWidth(130);
@@ -259,5 +263,46 @@ public class VerticalTester extends Application {
 			mediaPlayer.seek(rewind.subtract(new Duration(50)));
 		});
 	}
+	
+	private static String formatTime(Duration elapsed, Duration duration) {
+		int elapsedTime = (int) Math.floor(elapsed.toSeconds());
+		
+		//Calculates how many hours elapsed
+		int elapsedHours = elapsedTime / (60 * 60);
+		
+		if (elapsedHours > 0) {
+			//Subtract hours from elapsedTime to display correct minutes later on
+			elapsedTime = elapsedTime - elapsedHours * 60 * 60;
+		} // if
+		
+		int elapsedMinutes = elapsedTime / 60;
+		//Subtract elapsedMinutes to display accurate elapsedSeconds
+		int elapsedSeconds = elapsedTime - elapsedMinutes * 60;
+		
+		if (duration.greaterThan(Duration.ZERO)) {
+			int totalTime = (int) Math.floor(duration.toSeconds());
+			int totalHours = totalTime / (60 * 60);
+			
+			if (totalHours > 0) {
+				totalTime = totalTime - totalHours * 60 * 60;
+			} // if
+			
+			int totalMinutes = totalTime / 60;
+			int totalSeconds = totalTime - totalMinutes * 60;
+			
+			if (totalHours > 0) {
+				return String.format("%d:%02d:%02d/%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds, totalHours, totalMinutes, totalSeconds);
+			} else {
+				return String.format("%02d:%02d/%02d:%02d", elapsedMinutes, elapsedSeconds, totalMinutes, totalSeconds);
+			} // if
+		} else {
+			if (elapsedHours > 0) {
+				return String.format("%d:%02d:%02d", elapsedHours, elapsedMinutes, elapsedSeconds);
+			} else {
+				return String.format("%02d:%02d", elapsedMinutes, elapsedSeconds);
+			} // if
+			
+		} // if
+	} // formatTime
 	
 }
