@@ -128,7 +128,7 @@ public class VerticalTester extends Application {
 		slider.setMinWidth(50);
 		slider.setMaxWidth(Double.MAX_VALUE);
 		
-		Label playTime = new Label();
+		Label playTime = new Label("Time: " + "00:00");
 		playTime.setPrefWidth(130);
 		playTime.setMinWidth(50);
 		
