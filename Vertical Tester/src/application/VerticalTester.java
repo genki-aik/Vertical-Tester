@@ -135,8 +135,8 @@ public class VerticalTester extends Application {
 		slider.setMaxWidth(Double.MAX_VALUE);
 		
 		Label playTime = new Label("Time: " + "00:00");
-		playTime.setPrefWidth(130);
-		playTime.setMinWidth(50);
+		
+		Label volumeLabel = new Label("Vol: ");
 		
 		//slider.setMin(0);
 		//slider.setMax(media.getDuration().toSeconds());
@@ -189,7 +189,7 @@ public class VerticalTester extends Application {
 		//root.getChildren().addAll(mediaView, controls);
 		pane.getChildren().add(mediaView);
 		pane.setStyle("-fx-background-color: black;");
-		hbox.getChildren().addAll(slider, playTime, volumeSlider);
+		hbox.getChildren().addAll(slider, playTime, volumeLabel, volumeSlider);
 		vbox.getChildren().addAll(hbox, controls);
 		root.setCenter(pane);
 		root.setBottom(vbox);
