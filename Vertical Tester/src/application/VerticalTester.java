@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -124,7 +125,12 @@ public class VerticalTester extends Application {
 		*/
 		System.out.println(duration);
 		Slider slider = new Slider();
+		Slider volumeSlider = new Slider();
 		HBox.setHgrow(slider, Priority.ALWAYS);
+		
+		volumeSlider.setPrefWidth(70);
+		volumeSlider.setMaxWidth(Region.USE_PREF_SIZE);
+		volumeSlider.setMinWidth(30);
 		slider.setMinWidth(50);
 		slider.setMaxWidth(Double.MAX_VALUE);
 		
@@ -183,7 +189,7 @@ public class VerticalTester extends Application {
 		//root.getChildren().addAll(mediaView, controls);
 		pane.getChildren().add(mediaView);
 		pane.setStyle("-fx-background-color: black;");
-		hbox.getChildren().addAll(slider, playTime);
+		hbox.getChildren().addAll(slider, playTime, volumeSlider);
 		vbox.getChildren().addAll(hbox, controls);
 		root.setCenter(pane);
 		root.setBottom(vbox);
@@ -304,5 +310,10 @@ public class VerticalTester extends Application {
 			
 		} // if
 	} // formatTime
+	
+	protected void updateValues() {
+		;
+		// TODO create update values method
+	} // updateValues
 	
 }
