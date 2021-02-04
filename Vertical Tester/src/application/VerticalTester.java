@@ -83,46 +83,13 @@ public class VerticalTester extends Application {
 		*/
 		mediaView.setPreserveRatio(true);
 		
-		/*
-		Button startButton = new Button("First Jump");
-		Button stopButton = new Button("Feet lands");
-		Button calculate = new Button("Calculate Vert!");
-		Button play = new Button("PLAY");
-		Button pause = new Button("PAUSE");
-		
-		startButton.setOnAction(e -> {
-			System.out.println("Take off: " + mediaPlayer.getCurrentTime().toSeconds());
-			start = mediaPlayer.getCurrentTime().toSeconds();
-		});
-		
-		stopButton.setOnAction(e -> {
-			System.out.println("Feet Lands: " + mediaPlayer.getCurrentTime().toSeconds());
-			stop = mediaPlayer.getCurrentTime().toSeconds();
-		});
-		
-		calculate.setOnAction(e -> {
-			hangTime = stop - start;
-			vertical = 0.5 * 9.81 * Math.pow((hangTime / 2), 2);
-			vertical = vertical * 39.37;
-			System.out.printf("%.2f", vertical);
-			System.out.println(" inches");
-		});
-		
-		play.setOnAction(e -> mediaPlayer.play());
-		
-		pause.setOnAction(e -> mediaPlayer.pause());
-		*/
 		
 		mediaPlayer.setAutoPlay(true);
 		buttonHandlers();
 		
 		
 		duration = media.getDuration().toSeconds();
-		/*
-		slider = new Slider(0, duration, 1);
-		slider.setShowTickMarks(true);
-		slider.setShowTickLabels(true);
-		*/
+
 		System.out.println(duration);
 		Slider slider = new Slider();
 		Slider volumeSlider = new Slider();
