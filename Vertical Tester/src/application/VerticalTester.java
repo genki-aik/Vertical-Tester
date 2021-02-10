@@ -46,21 +46,6 @@ public class VerticalTester extends Application {
 	public void start(Stage primaryStage) {
 		String path = "/Users/genki/Downloads/VerticalTest3.mp4";
 		
-		/*
-		StackPane root = new StackPane();
-		
-		MediaPlayer player = new MediaPlayer(new Media(getClass().getResource("ShortVideo.mp4").toExternalForm()));
-		MediaView mediaView = new MediaView(player);
-		
-		root.getChildren().add(mediaView);
-		
-		Scene scene = new Scene(root, 1024, 768);
-		
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		player.play();
-		*/
 		
 		// TODO Add sliders
 		// TODO Equation to calculate vertical with time in air
