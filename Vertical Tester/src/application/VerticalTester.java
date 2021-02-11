@@ -122,6 +122,13 @@ public class VerticalTester extends Application {
 			slider.valueProperty().addListener(sliderChangeListener);
 		});
 		
+		mediaPlayer.setOnReady(new Runnable() {
+			public void run() {
+				duration = mediaPlayer.getMedia().getDuration();
+				updateValues();
+			}
+		});
+		
 		slider.maxProperty().bind(Bindings.createDoubleBinding(
 				() -> mediaPlayer.getTotalDuration().toSeconds(),
 				mediaPlayer.totalDurationProperty()));
