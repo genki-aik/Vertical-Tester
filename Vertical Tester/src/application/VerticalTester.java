@@ -81,7 +81,7 @@ public class VerticalTester extends Application {
 		
 		duration = media.getDuration();
 
-		System.out.println(duration);
+		//System.out.println(duration);
 		slider = new Slider();
 		volumeSlider = new Slider();
 		HBox.setHgrow(slider, Priority.ALWAYS);
@@ -141,8 +141,14 @@ public class VerticalTester extends Application {
 			public void invalidated(Observable ov) {
 				if (slider.isValueChanging()) {
 					mediaPlayer.seek(duration.multiply(slider.getValue() / 100.0));
-				}
-			}
+				} // if
+			} // invalidated
+		});
+		
+		volumeSlider.valueProperty().addListener(ov -> {
+			if (volumeSlider.isValueChanging()) {
+				mediaPlayer.setVolume(volumeSlider.getValue() / 100.0);
+			} // if
 		});
 		
 		mediaPlayer.setOnReady(new Runnable() {
