@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -32,8 +33,8 @@ public class VerticalTester extends Application {
 	double stop;
 	double hangTime;
 	double vertical;
-	double duration;
-	
+	//double duration;
+	Duration duration;
 	Media media;
 	MediaPlayer mediaPlayer;
 	MediaView mediaView;
@@ -41,6 +42,10 @@ public class VerticalTester extends Application {
 	//Slider slider;
 	
 	Controls controls = new Controls();
+	Label playTime;
+	Label volumeLabel;
+	Slider slider;
+	Slider volumeSlider;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -73,11 +78,11 @@ public class VerticalTester extends Application {
 		buttonHandlers();
 		
 		
-		duration = media.getDuration().toSeconds();
+		duration = media.getDuration();
 
 		System.out.println(duration);
-		Slider slider = new Slider();
-		Slider volumeSlider = new Slider();
+		slider = new Slider();
+		volumeSlider = new Slider();
 		HBox.setHgrow(slider, Priority.ALWAYS);
 		
 		volumeSlider.setPrefWidth(70);
@@ -86,9 +91,9 @@ public class VerticalTester extends Application {
 		slider.setMinWidth(50);
 		slider.setMaxWidth(Double.MAX_VALUE);
 		
-		Label playTime = new Label("Time: " + "00:00");
+		playTime = new Label();
 		
-		Label volumeLabel = new Label("Vol: ");
+		volumeLabel = new Label();
 		
 		//slider.setMin(0);
 		//slider.setMax(media.getDuration().toSeconds());
@@ -264,8 +269,22 @@ public class VerticalTester extends Application {
 	} // formatTime
 	
 	protected void updateValues() {
-		;
-		// TODO create update values method
+		if (playTime != null && slider != null && volumeSlider != null) {
+			Platform.runLater(new Runnable() {
+				
+				public void run() {
+					Duration currentTime = mediaPlayer.getCurrentTime();
+					playTime.setText(formatTime(currentTime, duration));
+					slider.setDisable(duration.isUnknown());
+					if (!slider.isDisabled() && duration.greaterThan(Duration.ZERO) && !slider.isValueChanging()) {
+						slider.setValue(currentTime.divide(duration.toMillis()).toMillis() * 100.0);
+					} // if
+					if (!volumeSlider.isValueChanging()) {
+						volumeSlider.setValue((int) Math.round(mediaPlayer.getVolume() * 100));
+					} // if
+				} // run
+			});
+		} // if
 	} // updateValues
 	
 }
