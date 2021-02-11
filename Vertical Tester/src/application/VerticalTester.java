@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Pos;
@@ -49,7 +50,7 @@ public class VerticalTester extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		String path = "/Users/genki/Downloads/VerticalTest3.mp4";
+		String path = "/Users/genki/Downloads/VerticalNew.mp4";
 		
 		
 		// TODO Add sliders
@@ -106,6 +107,7 @@ public class VerticalTester extends Application {
 		});
 		*/
 		
+		/*
 		InvalidationListener sliderChangeListener = o -> {
 			Duration seekTo = Duration.seconds(slider.getValue());
 			mediaPlayer.seek(seekTo);
@@ -121,6 +123,15 @@ public class VerticalTester extends Application {
 			
 			slider.valueProperty().addListener(sliderChangeListener);
 		});
+		*/
+		
+		slider.valueProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable ov) {
+				if (slider.isValueChanging()) {
+					mediaPlayer.seek(duration.multiply(slider.getValue() / 100.0));
+				}
+			}
+		});
 		
 		mediaPlayer.setOnReady(new Runnable() {
 			public void run() {
@@ -128,11 +139,11 @@ public class VerticalTester extends Application {
 				updateValues();
 			}
 		});
-		
+		/*
 		slider.maxProperty().bind(Bindings.createDoubleBinding(
 				() -> mediaPlayer.getTotalDuration().toSeconds(),
 				mediaPlayer.totalDurationProperty()));
-		
+		*/
 		//Group root = new Group();
 		BorderPane root = new BorderPane();
 		Pane pane = new Pane();
