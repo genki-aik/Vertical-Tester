@@ -124,6 +124,18 @@ public class VerticalTester extends Application {
 			slider.valueProperty().addListener(sliderChangeListener);
 		});
 		*/
+		/*
+		mediaPlayer.currentTimeProperty().addListener(new InvalidationListener() {
+			public void invalidated(Observable ov) {
+				updateValues();
+			}
+		});
+		*/
+		
+		// Update the slider as well as time label
+		mediaPlayer.currentTimeProperty().addListener(ov -> {
+			updateValues();
+		});
 		
 		slider.valueProperty().addListener(new InvalidationListener() {
 			public void invalidated(Observable ov) {
