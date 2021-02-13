@@ -1,6 +1,7 @@
 package application;
 	
 import java.io.File; 
+import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -190,9 +191,11 @@ public class VerticalTester extends Application {
 		Button pause;
 		Button forward;
 		Button backward;
+		Button extraVert;
 		
 		public Controls() {
 			super(5);
+			extraVert = new Button("How much vertical do I need?");
 			startButton = new Button("Take Off");
 			stopButton = new Button("Feet Lands");
 			calculate = new Button("Calculate Vertical");
@@ -202,7 +205,7 @@ public class VerticalTester extends Application {
 			backward = new Button("<<");
 			
 			
-			this.getChildren().addAll(startButton, stopButton, calculate, play, pause, backward, forward);
+			this.getChildren().addAll(extraVert, startButton, stopButton, calculate, play, pause, backward, forward);
 			this.setAlignment(Pos.CENTER);
 		}
 	} // Controls
@@ -240,6 +243,24 @@ public class VerticalTester extends Application {
 		controls.backward.setOnAction(e -> {
 			Duration rewind = mediaPlayer.getCurrentTime();
 			mediaPlayer.seek(rewind.subtract(new Duration(50)));
+		});
+		
+		controls.extraVert.setOnAction(e -> {
+			Scanner scanner = new Scanner(System.in);
+			System.out.println("Enter standing reach in INCHES: ");
+			double reach = scanner.nextDouble();
+			System.out.println("Your standing reach is: " + reach);
+			
+			System.out.println("Extra reach needed to dunk basketball: average is 6 inches");
+			System.out.println("Enter extra reach needed to dunk a basketball in INCHES: ");
+			double extraReach = scanner.nextDouble();
+			System.out.println("Your extra reach needed to dunk is: " + extraReach);
+			
+			double vertNeeded = 120 - reach;
+			double dunkVert = vertNeeded + extraReach;
+			
+			System.out.println("In order to dunk on a 10ft rim, you need a vert of: " + dunkVert + "in");
+			scanner.close();
 		});
 	} // buttonHandlers
 	
