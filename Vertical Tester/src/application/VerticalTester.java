@@ -1,18 +1,14 @@
 package application;
 	
 import java.io.File; 
-import java.io.FileInputStream;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -40,8 +35,6 @@ public class VerticalTester extends Application {
 	MediaPlayer mediaPlayer;
 	MediaView mediaView;
 	
-	//Slider slider;
-	
 	Controls controls = new Controls();
 	Label playTime;
 	Label volumeLabel;
@@ -50,12 +43,8 @@ public class VerticalTester extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		String path = "/Users/genki/Downloads/VerticalNew.mp4";
+		String path = "/Users/genki/Downloads/VerticalNew1.mp4";
 		
-		
-		// TODO Add sliders
-		// TODO Equation to calculate vertical with time in air
-		// TODO Think about design layout
 		// Vertical Jump Height = 0.5 * 9.81 m/s^2 * (hang time / 2) ^2
 		// d = Vi * t + (1/2) * a * t^2
 		
@@ -96,8 +85,6 @@ public class VerticalTester extends Application {
 		
 		volumeLabel = new Label();
 		
-		//slider.setMin(0);
-		//slider.setMax(media.getDuration().toSeconds());
 		
 		/*
 		mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
@@ -155,20 +142,19 @@ public class VerticalTester extends Application {
 			public void run() {
 				duration = mediaPlayer.getMedia().getDuration();
 				updateValues();
-			}
+			} // run
 		});
 		/*
 		slider.maxProperty().bind(Bindings.createDoubleBinding(
 				() -> mediaPlayer.getTotalDuration().toSeconds(),
 				mediaPlayer.totalDurationProperty()));
 		*/
-		//Group root = new Group();
+	
 		BorderPane root = new BorderPane();
 		Pane pane = new Pane();
 		VBox vbox = new VBox();
 		HBox hbox = new HBox();
-		//StackPane root = new StackPane();
-		//VBox vbox = new VBox(3);
+	
 		/*
 		StackPane.setAlignment(startButton, Pos.TOP_LEFT);
 		StackPane.setAlignment(play, Pos.BOTTOM_LEFT);
@@ -176,10 +162,7 @@ public class VerticalTester extends Application {
 		StackPane.setAlignment(stopButton, Pos.TOP_RIGHT);
 		root.getChildren().addAll(mediaView, startButton, play, pause, stopButton, calculate);
 		*/
-		//StackPane.setAlignment(controls, Pos.BOTTOM_CENTER);
-		//StackPane.setAlignment(slider,  Pos.TOP_CENTER);
 
-		//root.getChildren().addAll(mediaView, controls);
 		pane.getChildren().add(mediaView);
 		pane.setStyle("-fx-background-color: black;");
 		hbox.getChildren().addAll(slider, playTime, volumeLabel, volumeSlider);
@@ -187,10 +170,9 @@ public class VerticalTester extends Application {
 		root.setCenter(pane);
 		root.setBottom(vbox);
 		
-		//vbox.getChildren().addAll(mediaView, controls);
+		
 		Scene scene = new Scene(root, 600, 600);
 		
-		//Scene scene = new Scene(vbox, 500, 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Playing Video");
 		primaryStage.show();
@@ -208,8 +190,6 @@ public class VerticalTester extends Application {
 		Button pause;
 		Button forward;
 		Button backward;
-		
-		//Slider slider;
 		
 		public Controls() {
 			super(5);
@@ -261,7 +241,7 @@ public class VerticalTester extends Application {
 			Duration rewind = mediaPlayer.getCurrentTime();
 			mediaPlayer.seek(rewind.subtract(new Duration(50)));
 		});
-	}
+	} // buttonHandlers
 	
 	private static String formatTime(Duration elapsed, Duration duration) {
 		int elapsedTime = (int) Math.floor(elapsed.toSeconds());
