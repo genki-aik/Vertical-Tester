@@ -194,20 +194,24 @@ public class VerticalTester extends Application {
 		Button forward;
 		Button backward;
 		Button extraVert;
+		Button showTakeOff;
+		Button showLanding;
 		
 		public Controls() {
 			super(5);
-			extraVert = new Button("How much vertical do I need?");
+			extraVert = new Button("Vertical Needed");
 			startButton = new Button("Take Off");
 			stopButton = new Button("Feet Lands");
 			calculate = new Button("Calculate Vertical");
+			showTakeOff = new Button("Jump Start");
+			showLanding = new Button("Jump End");
 			play = new Button(">");
 			pause = new Button("||");
 			forward = new Button(">>");
 			backward = new Button("<<");
 			
 			
-			this.getChildren().addAll(extraVert, startButton, stopButton, calculate, play, pause, backward, forward);
+			this.getChildren().addAll(extraVert, startButton, stopButton, calculate, showTakeOff, showLanding, play, pause, backward, forward);
 			this.setAlignment(Pos.CENTER);
 		}
 	} // Controls
