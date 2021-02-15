@@ -30,6 +30,7 @@ public class VerticalTester extends Application {
 	double stop;
 	double hangTime;
 	double vertical;
+	double takeOff;
 	//double duration;
 	Duration duration;
 	Media media;
@@ -213,6 +214,7 @@ public class VerticalTester extends Application {
 	private void buttonHandlers() {
 		controls.startButton.setOnAction(e -> {
 			System.out.println("Take off: " + mediaPlayer.getCurrentTime().toSeconds());
+			takeOff = mediaPlayer.getCurrentTime().toSeconds();
 			start = mediaPlayer.getCurrentTime().toSeconds();
 		});
 		
