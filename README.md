@@ -1,4 +1,4 @@
-## Vertical Jump Tester
+## Vertical Jump Tester / Media Player
 
 ### What is it?
 This application is written in Java, using JavaFX to create the GUI. It uses `Media`
