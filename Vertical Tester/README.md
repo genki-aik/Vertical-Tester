@@ -4,7 +4,7 @@
 This application is written in Java, using JavaFX to create the GUI. It uses `Media`
 class in JavaFX to upload a mp4 video. It can calculate your vertical by calculating
 how long you are in the air for.\
-The equation to measure vertical jump height: __0.5 * 9.81 m/s^2 * (hang time / 2) ^2__
+The equation to measure vertical jump height: _0.5 * 9.81 m/s^2 * (hang time / 2) ^2_
 
 ### How to Use
 1. Record a video of yourself jumping; make sure the video file is in mp4 format
@@ -15,3 +15,5 @@ click __"Feet Lands"__ right when your feet touches the ground again after the j
 	and clicking the __">>"__ button to forward the video by 0.1 second or __"<<"__
 	button to rewind the video by 0.1 second.
 1. Check the console to see your vertical height!
+
+###### Built by Genki Aikawa
