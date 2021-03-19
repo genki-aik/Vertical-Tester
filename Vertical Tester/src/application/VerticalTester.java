@@ -73,7 +73,6 @@ public class VerticalTester extends Application {
 		
 		duration = media.getDuration();
 
-		//System.out.println(duration);
 		slider = new Slider();
 		volumeSlider = new Slider();
 		HBox.setHgrow(slider, Priority.ALWAYS);
@@ -183,9 +182,7 @@ public class VerticalTester extends Application {
 	} // start
 	
 	private class Controls extends HBox {
-		//HBox controlBox = new HBox(5);
-		//Slider slider = new Slider();
-		
+	
 		Button startButton;
 		Button stopButton;
 		Button calculate;
